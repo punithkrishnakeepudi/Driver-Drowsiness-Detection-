@@ -72,6 +72,6 @@ making this a cool blend of **AI + IoT safety automation**.
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/<your-username>/Driver-Drowsiness-Detection-IoT.git
+   git clone https://github.com/punithkrishnakeepudi/Driver-Drowsiness-Detection-.git
    cd Driver-Drowsiness-Detection-IoT
 
