@@ -1,0 +1,63 @@
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+
+ESP8266WebServer server(80);
+
+#define LED_GREEN D1
+#define LED_RED D2
+#define BUZZER D3
+#define MOTOR D5
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(LED_GREEN, OUTPUT);
+  pinMode(LED_RED, OUTPUT);
+  pinMode(BUZZER, OUTPUT);
+  pinMode(MOTOR, OUTPUT);
+
+  digitalWrite(LED_GREEN, LOW);
+  digitalWrite(LED_RED, LOW);
+  digitalWrite(BUZZER, LOW);
+  digitalWrite(MOTOR, LOW);
+
+  WiFi.softAP("DriverAssist", "12345678");
+  Serial.println("WiFi Access Point Started");
+  Serial.println(WiFi.softAPIP());
+
+  // --- Motor routes ---
+  server.on("/motor/on", []() {
+    digitalWrite(MOTOR, HIGH);
+    server.send(200, "text/plain", "MOTOR ON");
+  });
+
+  server.on("/motor/off", []() {
+    digitalWrite(MOTOR, LOW);
+    server.send(200, "text/plain", "MOTOR OFF");
+  });
+
+  // --- LED routes ---
+  server.on("/led/green", []() {
+    digitalWrite(LED_GREEN, HIGH);
+    digitalWrite(LED_RED, LOW);
+    server.send(200, "text/plain", "GREEN LED ON");
+  });
+
+  server.on("/led/red", []() {
+    digitalWrite(LED_RED, HIGH);
+    digitalWrite(LED_GREEN, LOW);
+    server.send(200, "text/plain", "RED LED ON");
+  });
+
+  // --- Root route ---
+  server.on("/", []() {
+    server.send(200, "text/plain", "NodeMCU Online");
+  });
+
+  server.begin();
+  Serial.println("Server started.");
+}
+
+void loop() {
+  server.handleClient();
+}
