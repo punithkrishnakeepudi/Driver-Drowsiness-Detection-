@@ -68,3 +68,10 @@ making this a cool blend of **AI + IoT safety automation**.
 - Required libraries:
   ```bash
   pip install opencv-python mediapipe numpy pyaudio requests
+  #### 🏃‍♂️ Run the Project
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/<your-username>/Driver-Drowsiness-Detection-IoT.git
+   cd Driver-Drowsiness-Detection-IoT
+
